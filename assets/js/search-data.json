@@ -4,8 +4,8 @@
         "post0": {
             "title": "Creating an Interactive Scatterplot with Altair",
             "content": ". Tip: Here are the required libraries and dataset. . #collapse-hide import pandas as pd import altair as alt movies = &#39;https://vega.github.io/vega-datasets/data/movies.json&#39; . . Example: Interactive Dropdown and Tooltips . Chart taken from this repo, specifically this notebook. . #collapse-hide df = pd.read_json(movies) # load movies data genres = df[&#39;Major_Genre&#39;].unique() # get unique field values genres = list(filter(lambda d: d is not None, genres)) # filter out null values genres.sort() # sort alphabetically mpaa = [&#39;G&#39;, &#39;PG&#39;, &#39;PG-13&#39;, &#39;R&#39;, &#39;NC-17&#39;, &#39;Not Rated&#39;] # single-value selection over [Major_Genre, MPAA_Rating] pairs # use specific hard-wired values as the initial selected values selection = alt.selection_single( name=&#39;Select&#39;, fields=[&#39;Major_Genre&#39;, &#39;MPAA_Rating&#39;], init={&#39;Major_Genre&#39;: &#39;Drama&#39;, &#39;MPAA_Rating&#39;: &#39;R&#39;}, bind={&#39;Major_Genre&#39;: alt.binding_select(options=genres), &#39;MPAA_Rating&#39;: alt.binding_radio(options=mpaa)} ) # scatter plot, modify opacity based on selection alt.Chart(movies).mark_circle().add_selection( selection ).encode( x=&#39;Rotten_Tomatoes_Rating:Q&#39;, y=&#39;IMDB_Rating:Q&#39;, tooltip=[&#39;Title:N&#39;, &#39;Release_Date:N&#39;, &#39;IMDB_Rating:Q&#39;, &#39;Rotten_Tomatoes_Rating:Q&#39;], opacity=alt.condition(selection, alt.value(0.75), alt.value(0.05)) ) . .",
-            "url": "https://nickmccarty.github.io/til/altair/jupyter/python/2020/04/28/altair-test.html",
-            "relUrl": "/altair/jupyter/python/2020/04/28/altair-test.html",
+            "url": "https://nickmccarty.github.io/til/altair/jupyter/python/2020/04/28/_04_28_altair_test.html",
+            "relUrl": "/altair/jupyter/python/2020/04/28/_04_28_altair_test.html",
             "date": " • Apr 28, 2020"
         }
         

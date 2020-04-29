@@ -28,7 +28,7 @@
 
   
       ,"page1": {
-          "title": "About Me",
+          "title": "About",
           "content": "This site is an attempt at organizing knowledge acquired in the pursuit of turning questions and problems into useful data products. .",
           "url": "https://nickmccarty.github.io/til/about/",
           "relUrl": "/about/",

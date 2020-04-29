@@ -6,8 +6,8 @@
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
-title: fastpages
-description: An easy to use blogging platform with support for Jupyter Notebooks.
+title: today i learned
+description: My attempt at organizing knowledge acquired in the pursuit of turning questions and problems into useful data products.
 github_username: nickmccarty
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "til"
@@ -39,8 +39,8 @@ baseurl: "/til" # the subpath of your site, e.g. "/blog".
 # Github and twitter are optional:
 minima:
   social_links:
-    twitter: fastdotai
-    github: fastai
+    # twitter: fastdotai
+    github: nickmccarty
 
 # Set this to true to get LaTeX math equation support
 use_math: 
@@ -55,7 +55,7 @@ show_image: false
 show_tags: true
 
 # Add your Google Analytics ID here if you have one and want to use it
-google_analytics: 
+google_analytics: UA-113157729-1
 
 exclude:
   - docker-compose.yml
@@ -70,7 +70,7 @@ include:
 default_badges:
   github: true
   binder: true
-  colab: true
+  # colab: true
 
 # Escape HTML in post descriptions
 html_escape:

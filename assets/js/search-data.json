@@ -1,30 +1,83 @@
 {
-  {% assign comma = false %}
-  {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-  {% for post in site.posts %}
-    {% if post.search_exclude != true %}
-        {% if comma == true%},{% endif %}"post{{ forloop.index0 }}": {
-            "title": "{{ post.title | replace: '&amp;', '&' }}",
-            "content": "{{ post.content | markdownify | replace: '</h', ' . </h' | replace: '<hr', ' . <hr' | replace: '</p', ' . </p' | replace: '</ul', ' . </ul' | replace: '</tr', ' . </tr' | replace: '</li', ' | </li' | replace: '</td', ' | </td' | strip_html | escape_once | remove: 'Table of contents' | remove: '```'  | remove: '---' | replace: '\', ' ' | replace: ' .  .  . ', ' . ' | replace: ' .  . ', ' . ' | normalize_whitespace }}",
-            "url": "{{ post.url | absolute_url }}",
-            "relUrl": "{{ post.url }}",
-            "date": " • {{ post.date | date: date_format }}"
+  
+    
+        "post0": {
+            "title": "The Central Limit Theorem",
+            "content": ". Note: The code required to illustrate the Central Limit Theorem using Python is provided in this article, but the modules thinkstats2 and thinkplot must first be pulled from here. . #collapse-hide %matplotlib inline import numpy as np import pandas as pd from scipy.stats import norm from scipy.stats import expon import random import thinkstats2 import thinkplot from matplotlib import MatplotlibDeprecationWarning from warnings import simplefilter simplefilter(&#39;ignore&#39;, MatplotlibDeprecationWarning) . . If you add up independent variates from a distribution with finite mean and variance, the sum converges on a normal distribution. The following plot shows how the sum of exponential variates converges to normal as sample size increases. . #collapse-hide # The following function generates samples with difference # sizes from an exponential distribution. def MakeExpoSamples(beta=2.0, iters=1000): &quot;&quot;&quot;Generates samples from an exponential distribution. beta: parameter iters: number of samples to generate for each size returns: list of samples &quot;&quot;&quot; samples = [] for n in [1, 10, 100]: sample = [np.sum(np.random.exponential(beta, n)) for _ in range(iters)] samples.append((n, sample)) return samples # This function generates normal probability plots for # samples with various sizes. def NormalPlotSamples(samples, plot=1, ylabel=&#39;&#39;): &quot;&quot;&quot;Makes normal probability plots for samples. samples: list of samples label: string &quot;&quot;&quot; for n, sample in samples: thinkplot.SubPlot(plot) thinkstats2.NormalProbabilityPlot(sample) thinkplot.Config(title=&#39;n=%d&#39; % n, legend=False, xticks=[], yticks=[], xlabel=&#39;Random normal variate&#39;, ylabel=ylabel) plot += 1 # Make plots. thinkplot.PrePlot(num=3, rows=2, cols=3) samples = MakeExpoSamples() NormalPlotSamples(samples, plot=1, ylabel=&#39;Sum of expo values&#39;) . . The lognormal distribution has higher variance, so it requires a larger sample size before it converges to normal. . #collapse-hide # The following function generates samples with difference # sizes from an lognormal distribution. def MakeLognormalSamples(mu=1.0, sigma=1.0, iters=1000): &quot;&quot;&quot;Generates samples from a lognormal distribution. mu: parmeter sigma: parameter iters: number of samples to generate for each size returns: list of samples &quot;&quot;&quot; samples = [] for n in [1, 10, 100]: sample = [np.sum(np.random.lognormal(mu, sigma, n)) for _ in range(iters)] samples.append((n, sample)) return samples # Make plots. thinkplot.PrePlot(num=3, rows=2, cols=3) samples = MakeLognormalSamples() NormalPlotSamples(samples, ylabel=&#39;sum of lognormal values&#39;) . . The Pareto distribution has infinite variance, and sometimes infinite mean, depending on the parameters. It violates the requirements of the CLT and does not generally converge to normal. . #collapse-hide # The following function generates samples with difference # sizes from an Pareto distribution. def MakeParetoSamples(alpha=1.0, iters=1000): &quot;&quot;&quot;Generates samples from a Pareto distribution. alpha: parameter iters: number of samples to generate for each size returns: list of samples &quot;&quot;&quot; samples = [] for n in [1, 10, 100]: sample = [np.sum(np.random.pareto(alpha, n)) for _ in range(iters)] samples.append((n, sample)) return samples # Make plots. thinkplot.PrePlot(num=3, rows=2, cols=3) samples = MakeParetoSamples() NormalPlotSamples(samples, ylabel=&#39;sum of Pareto values&#39;) . . If the random variates are correlated, that also violates the CLT, so the sums don&#39;t generally converge. To generate correlated values, we generate correlated normal values and then transform to whatever distribution we want. . #collapse-hide def GenerateCorrelated(rho, n): &quot;&quot;&quot;Generates a sequence of correlated values from a standard normal dist. rho: coefficient of correlation n: length of sequence returns: iterator &quot;&quot;&quot; x = random.gauss(0, 1) yield x sigma = np.sqrt(1 - rho**2) for _ in range(n-1): x = random.gauss(x * rho, sigma) yield x def GenerateExpoCorrelated(rho, n): &quot;&quot;&quot;Generates a sequence of correlated values from an exponential dist. rho: coefficient of correlation n: length of sequence returns: NumPy array &quot;&quot;&quot; normal = list(GenerateCorrelated(rho, n)) uniform = norm.cdf(normal) expo = expon.ppf(uniform) return expo def MakeCorrelatedSamples(rho=0.9, iters=1000): &quot;&quot;&quot;Generates samples from a correlated exponential distribution. rho: correlation iters: number of samples to generate for each size returns: list of samples &quot;&quot;&quot; samples = [] for n in [1, 10, 100]: sample = [np.sum(GenerateExpoCorrelated(rho, n)) for _ in range(iters)] samples.append((n, sample)) return samples # Make plots. thinkplot.PrePlot(num=3, rows=2, cols=3) samples = MakeCorrelatedSamples() NormalPlotSamples(samples, ylabel=&#39;Sum of correlated exponential values&#39;) . .",
+            "url": "https://nickmccarty.github.io/til/statistics/central%20limit%20theorem/python/2020/04/30/central-limit-theorem.html",
+            "relUrl": "/statistics/central%20limit%20theorem/python/2020/04/30/central-limit-theorem.html",
+            "date": " • Apr 30, 2020"
         }
-        {% assign comma = true %}
-    {% endif %}
-  {% endfor %}
+        
+    
+  
+    
+        ,"post1": {
+            "title": "How to Create an Interactive Scatterplot with Plotly",
+            "content": ". Tip: Here are the required libraries and dataset. . #collapse_hide import plotly.graph_objects as go import pandas as pd data= pd.read_csv(&quot;https://raw.githubusercontent.com/plotly/datasets/master/2014_usa_states.csv&quot;) fig = go.Figure(data=go.Scatter(x=data[&#39;Postal&#39;], y=data[&#39;Population&#39;], mode=&#39;markers&#39;, marker_color=data[&#39;Population&#39;], text=data[&#39;State&#39;])) # hover text goes here fig.update_layout(title=&#39;Population of USA States&#39;) fig.show() . . Example: Data Labels on Hover . Chart taken from here. .",
+            "url": "https://nickmccarty.github.io/til/plotly/jupyter/python/2020/04/29/_04_29_plotly_test.html",
+            "relUrl": "/plotly/jupyter/python/2020/04/29/_04_29_plotly_test.html",
+            "date": " • Apr 29, 2020"
+        }
+        
+    
+  
+    
+        ,"post2": {
+            "title": "How to Create an Interactive Scatterplot with Altair",
+            "content": ". Tip: Here are the required libraries and dataset. . #collapse-hide import pandas as pd import altair as alt movies = &#39;https://vega.github.io/vega-datasets/data/movies.json&#39; . . Example: Interactive Dropdown and Tooltips . Chart taken from this repo, specifically this notebook. . #collapse-hide df = pd.read_json(movies) # load movies data genres = df[&#39;Major_Genre&#39;].unique() # get unique field values genres = list(filter(lambda d: d is not None, genres)) # filter out null values genres.sort() # sort alphabetically mpaa = [&#39;G&#39;, &#39;PG&#39;, &#39;PG-13&#39;, &#39;R&#39;, &#39;NC-17&#39;, &#39;Not Rated&#39;] # single-value selection over [Major_Genre, MPAA_Rating] pairs # use specific hard-wired values as the initial selected values selection = alt.selection_single( name=&#39;Select&#39;, fields=[&#39;Major_Genre&#39;, &#39;MPAA_Rating&#39;], init={&#39;Major_Genre&#39;: &#39;Drama&#39;, &#39;MPAA_Rating&#39;: &#39;R&#39;}, bind={&#39;Major_Genre&#39;: alt.binding_select(options=genres), &#39;MPAA_Rating&#39;: alt.binding_radio(options=mpaa)} ) # scatter plot, modify opacity based on selection alt.Chart(movies).mark_circle().add_selection( selection ).encode( x=&#39;Rotten_Tomatoes_Rating:Q&#39;, y=&#39;IMDB_Rating:Q&#39;, tooltip=[&#39;Title:N&#39;, &#39;Release_Date:N&#39;, &#39;IMDB_Rating:Q&#39;, &#39;Rotten_Tomatoes_Rating:Q&#39;], opacity=alt.condition(selection, alt.value(0.75), alt.value(0.05)) ) . .",
+            "url": "https://nickmccarty.github.io/til/altair/jupyter/python/2020/04/29/_04_28_altair_test.html",
+            "relUrl": "/altair/jupyter/python/2020/04/29/_04_28_altair_test.html",
+            "date": " • Apr 29, 2020"
+        }
+        
+    
+  
 
-  {% for page in site.pages %}
-  {% if page.url contains '.xml' or page.url contains 'assets'%}
-  {% elsif page.search_exclude != true %}
-      {% if comma == true%},{% endif %}"page{{ forloop.index0 }}": {
-          "title": "{{ page.title | replace: '&amp;', '&' }}",
-          "content": "{{ page.content | markdownify | replace: '</h', ' . </h' | replace: '<hr', ' . <hr' | replace: '</p', ' . </p' | replace: '</ul', ' . </ul' | replace: '</tr', ' . </tr' | replace: '</li', ' | </li' | replace: '</td', ' | </td' | strip_html | escape_once | remove: 'Table of contents' | remove: '```'  | remove: '---' | replace: '\', ' ' | replace: ' .  .  . ', ' . ' | replace: ' .  . ', ' . ' | normalize_whitespace }}",
-          "url": "{{ page.url | absolute_url }}",
-          "relUrl": "{{ page.url }}",
+  
+  
+
+  
+      ,"page1": {
+          "title": "About",
+          "content": "This site is an attempt at organizing knowledge acquired in the pursuit of turning questions and problems into useful data products. .",
+          "url": "https://nickmccarty.github.io/til/about/",
+          "relUrl": "/about/",
           "date": ""
       }
-      {% assign comma = true %}
-  {% endif %}
-{% endfor %}
+      
+  
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+      ,"page10": {
+          "title": "",
+          "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
+          "url": "https://nickmccarty.github.io/til/robots.txt",
+          "relUrl": "/robots.txt",
+          "date": ""
+      }
+      
+  
+
 }

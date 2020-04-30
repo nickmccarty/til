@@ -16,3 +16,17 @@ search_exclude: true
     <br>
     <div class="js-search-results search-results-wrap"></div>
 </div>
+
+<script src="{{site.baseurl}}/js/custom-search.js"></script>
+<link rel="stylesheet" type="text/css" href="{{site.baseurl}}/css/custom-search.css">
+<div id="spinner"><i class="fa fa-spinner fa-spin"></i></div>
+
+<script src="{{site.baseurl}}/js/index.js"></script>
+
+<script>
+    window.addEventListener("load", function(){
+        var dict = {facets: '#new_facet_field', pagination: '#paginationid', "results": ".results-class-override", settingsurl: "http://hostname.com/javascript/index.js"}
+        loadsearchtemplate(dict);
+        $('#spinner').hide();
+    });
+</script>

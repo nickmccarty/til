@@ -115,6 +115,19 @@ window.onload = wrap_img;
     <div class="js-search-results search-results-wrap"></div>
 </div>
 
+<script src="/til/js/custom-search.js"></script>
+<link rel="stylesheet" type="text/css" href="/til/css/custom-search.css">
+<div id="spinner"><i class="fa fa-spinner fa-spin"></i></div>
+
+<script src="/til/js/index.js"></script>
+
+<script>
+    window.addEventListener("load", function(){
+        var dict = {facets: '#new_facet_field', pagination: '#paginationid', "results": ".results-class-override", settingsurl: "http://hostname.com/javascript/index.js"}
+        loadsearchtemplate(dict);
+        $('#spinner').hide();
+    });
+</script>
       </div>
     </main><footer class="site-footer h-card">
   <data class="u-url" href="/til/"></data>

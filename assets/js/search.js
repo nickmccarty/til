@@ -1,5 +1,3 @@
----
----
 // from https://github.com/pmarsceill/just-the-docs/blob/master/assets/js/just-the-docs.js#L47
 
 (function (jtd, undefined) {

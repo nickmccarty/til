@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://nickmccarty.github.io/til/2020/04/30/YYYY-MM-DD-post-template.html</loc>
+<lastmod>2020-04-30T00:00:00-05:00</lastmod>
+</url>
+<url>
 <loc>https://nickmccarty.github.io/til/altair/jupyter/python/2020/04/30/_04_28_altair_test.html</loc>
 <lastmod>2020-04-30T00:00:00-05:00</lastmod>
 </url>
@@ -19,6 +23,6 @@
 </url>
 <url>
 <loc>https://nickmccarty.github.io/til/_pages/search.html</loc>
-<lastmod>2020-05-01T16:29:20-05:00</lastmod>
+<lastmod>2020-05-01T17:52:26-05:00</lastmod>
 </url>
 </urlset>

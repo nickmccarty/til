@@ -308,38 +308,61 @@ Boston house prices dataset
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This dataset contains features like "lower status of population" and "the proportion of blacks by town". This is bad. There's a real possibility that our model will overfit on MSE and underfit on fairness when we want to apply it. Scikit-Lego has some support to deal with fairness issues like this one.</p>
-<p>Dealing with issues such as fairness in machine learning can in general be done in three ways:</p>
-<ul>
-<li>Data preprocessing</li>
-<li>Model contraints</li>
-<li>Prediction postprocessing.</li>
-</ul>
-<p>But before we can dive into methods for getting more fair predictions, we first need to define how to measure fairness</p>
-<h2 id="Measuring-fairness-for-Regression">Measuring fairness for Regression<a class="anchor-link" href="#Measuring-fairness-for-Regression"> </a></h2><p>Measuring fairness can be done in many ways but we'll consider one definition: the output of the model is fair with regards to groups $A$ and $B$ if prediction has a distribution independant if group $A$ or $B$. In laymans terms: if group $A$ and $B$ don't get the same predictions: no bueno.</p>
-<p>Formally, this can be written as:</p>
-<p>
-$$fairness = \left\lvert \frac{1}{|Z_1|} \sum_{i \in Z_1} \hat{y}_{i} - \frac{1}{|Z_0|} \sum_{i \in Z_0} \hat{y}_{i} \right\rvert$$
-</p>
-<p>where $Z_1$ is the subset of the population where our sensitive attribute is true, and $Z_0$ the subset of the population where the sensitive attribute is false</p>
-<p>To estimate this we'll use bootstrap sampling to measure the models bias.</p>
-<h2 id="Measuring-fairness-for-Classification">Measuring fairness for Classification<a class="anchor-link" href="#Measuring-fairness-for-Classification"> </a></h2><p>A common method for measuring fairness is <strong>demographic parity</strong><a href="#fn1"><sup>1</sup></a>, for example through the p-percent metric. 
-The idea behind it is that it requires that a decision — such as accepting or denying a loan application — be independent of the protected attribute. In other words, we expect the <strong>positive</strong> rate in both groups to be the same. In the case of a binary decision $\hat{y}$ and a binary protected attribute $z$, this constraint can be formalized by asking that</p>
-<p>
-$$P(\hat{y}=1 | z=0)=P(\hat{y}=1 | z=1)$$
-</p>
-<p>You can turn this into a metric by calculating how far off this exact equality your decision process is. This metric is called the p% score</p>
-<p>
-$$\text{p% score} = \min \left(\frac{P(\hat{y}=1 | z=1)}{P(\hat{y}=1 | z=0)}, \frac{P(\hat{y}=1 | z=0)}{P(\hat{y}=1 | z=1)}\right)$$
-</p>
-<p>In other words, membership in a protected class should have no correlation with the decision.</p>
-<p>In <code>sklego</code> this metric is implemented in <code>sklego.metrics.p_percent_score</code> and it works as follows:</p>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">This</span> <span class="n">dataset</span> <span class="n">contains</span> <span class="n">features</span> <span class="n">like</span> <span class="s2">&quot;lower status of population&quot;</span> <span class="ow">and</span> <span class="s2">&quot;the proportion of blacks by town&quot;</span><span class="o">.</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">bad</span><span class="o">.</span> <span class="n">There</span><span class="s1">&#39;s a real possibility that our model will overfit on MSE and underfit on fairness when we want to apply it. Scikit-Lego has some support to deal with fairness issues like this one. </span>
+
+<span class="n">Dealing</span> <span class="k">with</span> <span class="n">issues</span> <span class="n">such</span> <span class="k">as</span> <span class="n">fairness</span> <span class="ow">in</span> <span class="n">machine</span> <span class="n">learning</span> <span class="n">can</span> <span class="ow">in</span> <span class="n">general</span> <span class="n">be</span> <span class="n">done</span> <span class="ow">in</span> <span class="n">three</span> <span class="n">ways</span><span class="p">:</span> 
+
+<span class="o">-</span> <span class="n">Data</span> <span class="n">preprocessing</span>
+<span class="o">-</span> <span class="n">Model</span> <span class="n">contraints</span>
+<span class="o">-</span> <span class="n">Prediction</span> <span class="n">postprocessing</span><span class="o">.</span>
+
+<span class="n">But</span> <span class="n">before</span> <span class="n">we</span> <span class="n">can</span> <span class="n">dive</span> <span class="n">into</span> <span class="n">methods</span> <span class="k">for</span> <span class="n">getting</span> <span class="n">more</span> <span class="n">fair</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">we</span> <span class="n">first</span> <span class="n">need</span> <span class="n">to</span> <span class="n">define</span> <span class="n">how</span> <span class="n">to</span> <span class="n">measure</span> <span class="n">fairness</span>
+
+
+<span class="c1">##  Measuring fairness for Regression</span>
+
+
+<span class="n">Measuring</span> <span class="n">fairness</span> <span class="n">can</span> <span class="n">be</span> <span class="n">done</span> <span class="ow">in</span> <span class="n">many</span> <span class="n">ways</span> <span class="n">but</span> <span class="n">we</span><span class="s1">&#39;ll consider one definition: the output of the model is fair with regards to groups $A$ and $B$ if prediction has a distribution independant if group $A$ or $B$. In laymans terms: if group $A$ and $B$ don&#39;</span><span class="n">t</span> <span class="n">get</span> <span class="n">the</span> <span class="n">same</span> <span class="n">predictions</span><span class="p">:</span> <span class="n">no</span> <span class="n">bueno</span><span class="o">.</span> 
+
+<span class="n">Formally</span><span class="p">,</span> <span class="n">this</span> <span class="n">can</span> <span class="n">be</span> <span class="n">written</span> <span class="k">as</span><span class="p">:</span>
+
+<span class="err">$$</span><span class="n">fairness</span> <span class="o">=</span> \<span class="n">left</span>\<span class="n">lvert</span> \<span class="n">frac</span><span class="p">{</span><span class="mi">1</span><span class="p">}{</span><span class="o">|</span><span class="n">Z_1</span><span class="o">|</span><span class="p">}</span> \<span class="n">sum_</span><span class="p">{</span><span class="n">i</span> \<span class="ow">in</span> <span class="n">Z_1</span><span class="p">}</span> \<span class="n">hat</span><span class="p">{</span><span class="n">y</span><span class="p">}</span><span class="n">_</span><span class="p">{</span><span class="n">i</span><span class="p">}</span> <span class="o">-</span> \<span class="n">frac</span><span class="p">{</span><span class="mi">1</span><span class="p">}{</span><span class="o">|</span><span class="n">Z_0</span><span class="o">|</span><span class="p">}</span> \<span class="n">sum_</span><span class="p">{</span><span class="n">i</span> \<span class="ow">in</span> <span class="n">Z_0</span><span class="p">}</span> \<span class="n">hat</span><span class="p">{</span><span class="n">y</span><span class="p">}</span><span class="n">_</span><span class="p">{</span><span class="n">i</span><span class="p">}</span> \<span class="n">right</span>\<span class="n">rvert</span><span class="err">$$</span>
+
+<span class="n">where</span> <span class="err">$$</span><span class="n">Z_1</span><span class="err">$$</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">subset</span> <span class="n">of</span> <span class="n">the</span> <span class="n">population</span> <span class="n">where</span> <span class="n">our</span> <span class="n">sensitive</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="n">true</span><span class="p">,</span> <span class="ow">and</span> <span class="err">$</span><span class="n">Z_0</span><span class="err">$</span> <span class="n">the</span> <span class="n">subset</span> <span class="n">of</span> <span class="n">the</span> <span class="n">population</span> <span class="n">where</span> <span class="n">the</span> <span class="n">sensitive</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="n">false</span>
+
+<span class="n">To</span> <span class="n">estimate</span> <span class="n">this</span> <span class="n">we</span><span class="s1">&#39;ll use bootstrap sampling to measure the models bias.</span>
+
+
+<span class="c1">##  Measuring fairness for Classification</span>
+
+<span class="n">A</span> <span class="n">common</span> <span class="n">method</span> <span class="k">for</span> <span class="n">measuring</span> <span class="n">fairness</span> <span class="ow">is</span> <span class="n">__demographic</span> <span class="n">parity__</span><span class="p">[</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">sup</span><span class="o">&gt;</span><span class="p">](</span><span class="c1">#fn1), for example through the p-percent metric. </span>
+<span class="n">The</span> <span class="n">idea</span> <span class="n">behind</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">that</span> <span class="n">it</span> <span class="n">requires</span> <span class="n">that</span> <span class="n">a</span> <span class="n">decision</span> <span class="err">—</span> <span class="n">such</span> <span class="k">as</span> <span class="n">accepting</span> <span class="ow">or</span> <span class="n">denying</span> <span class="n">a</span> <span class="n">loan</span> <span class="n">application</span> <span class="err">—</span> <span class="n">be</span> <span class="n">independent</span> <span class="n">of</span> <span class="n">the</span> <span class="n">protected</span> <span class="n">attribute</span><span class="o">.</span> <span class="n">In</span> <span class="n">other</span> <span class="n">words</span><span class="p">,</span> <span class="n">we</span> <span class="n">expect</span> <span class="n">the</span> <span class="n">__positive__</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">both</span> <span class="n">groups</span> <span class="n">to</span> <span class="n">be</span> <span class="n">the</span> <span class="n">same</span><span class="o">.</span> <span class="n">In</span> <span class="n">the</span> <span class="n">case</span> <span class="n">of</span> <span class="n">a</span> <span class="n">binary</span> <span class="n">decision</span> <span class="err">$</span>\<span class="n">hat</span><span class="p">{</span><span class="n">y</span><span class="p">}</span><span class="err">$</span> <span class="ow">and</span> <span class="n">a</span> <span class="n">binary</span> <span class="n">protected</span> <span class="n">attribute</span> <span class="err">$</span><span class="n">z</span><span class="err">$</span><span class="p">,</span> <span class="n">this</span> <span class="n">constraint</span> <span class="n">can</span> <span class="n">be</span> <span class="n">formalized</span> <span class="n">by</span> <span class="n">asking</span> <span class="n">that</span>
+
+<span class="err">$$</span><span class="n">P</span><span class="p">(</span>\<span class="n">hat</span><span class="p">{</span><span class="n">y</span><span class="p">}</span><span class="o">=</span><span class="mi">1</span> <span class="o">|</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">=</span><span class="n">P</span><span class="p">(</span>\<span class="n">hat</span><span class="p">{</span><span class="n">y</span><span class="p">}</span><span class="o">=</span><span class="mi">1</span> <span class="o">|</span> <span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="err">$$</span>
+
+<span class="n">You</span> <span class="n">can</span> <span class="n">turn</span> <span class="n">this</span> <span class="n">into</span> <span class="n">a</span> <span class="n">metric</span> <span class="n">by</span> <span class="n">calculating</span> <span class="n">how</span> <span class="n">far</span> <span class="n">off</span> <span class="n">this</span> <span class="n">exact</span> <span class="n">equality</span> <span class="n">your</span> <span class="n">decision</span> <span class="n">process</span> <span class="ow">is</span><span class="o">.</span> <span class="n">This</span> <span class="n">metric</span> <span class="ow">is</span> <span class="n">called</span> <span class="n">the</span> <span class="n">p</span><span class="o">%</span> <span class="n">score</span>
+
+<span class="err">$$</span>\<span class="n">text</span><span class="p">{</span><span class="n">p</span><span class="o">%</span> <span class="n">score</span><span class="p">}</span> <span class="o">=</span> \<span class="nb">min</span> \<span class="n">left</span><span class="p">(</span>\<span class="n">frac</span><span class="p">{</span><span class="n">P</span><span class="p">(</span>\<span class="n">hat</span><span class="p">{</span><span class="n">y</span><span class="p">}</span><span class="o">=</span><span class="mi">1</span> <span class="o">|</span> <span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">)}{</span><span class="n">P</span><span class="p">(</span>\<span class="n">hat</span><span class="p">{</span><span class="n">y</span><span class="p">}</span><span class="o">=</span><span class="mi">1</span> <span class="o">|</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">)},</span> \<span class="n">frac</span><span class="p">{</span><span class="n">P</span><span class="p">(</span>\<span class="n">hat</span><span class="p">{</span><span class="n">y</span><span class="p">}</span><span class="o">=</span><span class="mi">1</span> <span class="o">|</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">)}{</span><span class="n">P</span><span class="p">(</span>\<span class="n">hat</span><span class="p">{</span><span class="n">y</span><span class="p">}</span><span class="o">=</span><span class="mi">1</span> <span class="o">|</span> <span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">)}</span>\<span class="n">right</span><span class="p">)</span><span class="err">$$</span>
+
+<span class="n">In</span> <span class="n">other</span> <span class="n">words</span><span class="p">,</span> <span class="n">membership</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">protected</span> <span class="k">class</span> <span class="nc">should</span> <span class="n">have</span> <span class="n">no</span> <span class="n">correlation</span> <span class="k">with</span> <span class="n">the</span> <span class="n">decision</span><span class="o">.</span>
+
+<span class="n">In</span> <span class="err">`</span><span class="n">sklego</span><span class="err">`</span> <span class="n">this</span> <span class="n">metric</span> <span class="ow">is</span> <span class="n">implemented</span> <span class="ow">in</span> <span class="err">`</span><span class="n">sklego</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">p_percent_score</span><span class="err">`</span> <span class="ow">and</span> <span class="n">it</span> <span class="n">works</span> <span class="k">as</span> <span class="n">follows</span><span class="p">:</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
-</div>
-</div>
+    
+
     
     
 <div class="cell border-box-sizing code_cell rendered">

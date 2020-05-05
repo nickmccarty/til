@@ -182,7 +182,6 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h6"><a href="#-">  </a></li>
 <li class="toc-entry toc-h2"><a href="#tl;dr">tl;dr </a></li>
 <li class="toc-entry toc-h2"><a href="#Measuring-Fairness...">Measuring Fairness... </a>
 <ul>
@@ -241,9 +240,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="-">
-<a class="anchor" href="#-" aria-hidden="true"><span class="octicon octicon-link"></span></a> <a class="anchor-link" href="#-"> </a>
-</h6>
+<p><br></p>
+
 </div>
 </div>
 </div>
@@ -288,7 +286,7 @@ window.onload = wrap_img;
 <h2 id="tl;dr">
 <a class="anchor" href="#tl;dr" aria-hidden="true"><span class="octicon octicon-link"></span></a>tl;dr<a class="anchor-link" href="#tl;dr"> </a>
 </h2>
-<p>Scikit-Learn comes with a copy of <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/housing/">UC Irvine's ML housing dataset</a> (better known as the Boston housing dataset), which was taken from the StatLib library which is maintained at Carnegie Mellon University. This dataset contains features like "lower status of population" and "the proportion of blacks by town". Consequently, there's a real possibility that any model made from this dataset will overfit on MSE and underfit on fairness when we want to apply it. Scikit-Lego offers tools to mitigate such fairness issues; a demonstration is provided, along with some discussion of the underlying intuition, as originally provided in the <a href="https://scikit-lego.readthedocs.io/en/latest/">scikit-lego documentation</a>.</p>
+<p>Scikit-Learn comes with a copy of <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/housing/">UC Irvine's ML housing dataset</a> (better known as the Boston housing dataset), which was taken from the StatLib library which is maintained at Carnegie Mellon University. This dataset contains features like "lower status of population" and "the proportion of blacks by town". Consequently, there's a real possibility that any model made from this dataset will overfit on Mean Squared Error and underfit on fairness when we want to apply it. Scikit-Lego offers tools to mitigate such fairness issues; a demonstration is provided, along with some discussion of the underpinning mathematical intuition, as originally provided in the <a href="https://scikit-lego.readthedocs.io/en/latest/">scikit-lego documentation</a>.</p>
 
 </div>
 </div>
@@ -424,18 +422,18 @@ Boston house prices dataset
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This dataset contains features like "lower status of population" and "the proportion of blacks by town". This is bad. There's a real possibility that our model will overfit on MSE and underfit on fairness when we want to apply it. Scikit-Lego has some support to deal with fairness issues like this one.</p>
+<p>This dataset contains features like "% lower status of population" and "the proportion of blacks". Consequently, there's a real possibility that our model will overfit on MSE and underfit on fairness when we want to apply it. Scikit-Lego provides support with respect to fairness issues like this one.</p>
 <p>Dealing with issues such as fairness in machine learning can in general be done in three ways:</p>
-<ul>
+<ol>
 <li>Data preprocessing</li>
 <li>Model contraints</li>
-<li>Prediction postprocessing.</li>
-</ul>
+<li>Prediction postprocessing</li>
+</ol>
 <p>But before we can dive into methods for getting more fair predictions, we first need to define how to measure fairness.</p>
 <h3 id="...of-Regression">
 <a class="anchor" href="#...of-Regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>...of Regression<a class="anchor-link" href="#...of-Regression"> </a>
 </h3>
-<p>Measuring fairness can be done in many ways but we'll consider one definition: the output of the model is fair with regards to groups $A$ and $B$ if prediction has a distribution independant if group $A$ or $B$. In laymans terms: if group $A$ and $B$ don't get the same predictions: no bueno.</p>
+<p>Measuring fairness can be done in many ways but we'll consider one definition: the output of the model is fair with regards to groups $A$ and $B$ if prediction has a distribution independant if group $A$ or $B$. In laymans terms: if group $A$ and $B$ don't get the same predictions: no .</p>
 <p>Formally, this can be written as:</p>
 <p><br></p>
 <p>
@@ -678,6 +676,16 @@ $$<p><br></p>
 <span class="n">base_pred</span> <span class="o">=</span> <span class="n">base_mod</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">drop_pred</span> <span class="o">=</span> <span class="n">drop_mod</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_drop</span><span class="p">)</span>
 <span class="n">fair_pred</span> <span class="o">=</span> <span class="n">fair_mod</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_fair</span><span class="p">)</span>
+
+<span class="c1"># we're using lstat to select the group to keep things simple</span>
+<span class="n">selector</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"lstat"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"lstat"</span><span class="p">],</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">bootstrap_means</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">selector</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2500</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+    
+    <span class="n">grp1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">preds</span><span class="p">[</span><span class="n">selector</span><span class="p">],</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">grp2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">preds</span><span class="p">[</span><span class="o">~</span><span class="n">selector</span><span class="p">],</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">grp1</span> <span class="o">-</span> <span class="n">grp2</span>
 </pre></div>
 
     </div>
@@ -816,36 +824,6 @@ $$<p><br></p>
 </div>
 </div>
 
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p></p>
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
-<span class="c1"># we're using lstat to select the group to keep things simple</span>
-<span class="n">selector</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"lstat"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"lstat"</span><span class="p">],</span> <span class="mf">0.5</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">bootstrap_means</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">selector</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2500</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
-    
-    <span class="n">grp1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">preds</span><span class="p">[</span><span class="n">selector</span><span class="p">],</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">grp2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">preds</span><span class="p">[</span><span class="o">~</span><span class="n">selector</span><span class="p">],</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">grp1</span> <span class="o">-</span> <span class="n">grp2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
 </div>
     
 

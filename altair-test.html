@@ -6,17 +6,18 @@
 <title>How to Create an Interactive Scatterplot with Altair | til</title>
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="How to Create an Interactive Scatterplot with Altair" />
+<meta name="author" content="Nicholas McCarty" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Rendering Vega visualization grammar in Jupyter Notebooks" />
 <meta property="og:description" content="Rendering Vega visualization grammar in Jupyter Notebooks" />
-<link rel="canonical" href="https://nickmccarty.github.io/til/altair-test/" />
-<meta property="og:url" content="https://nickmccarty.github.io/til/altair-test/" />
+<link rel="canonical" href="https://nickmccarty.github.io/til/altair-test" />
+<meta property="og:url" content="https://nickmccarty.github.io/til/altair-test" />
 <meta property="og:site_name" content="til" />
 <meta property="og:image" content="https://nickmccarty.github.io/til/images/altair_scatterplot.jpg" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-05-03T00:00:00-05:00" />
+<meta property="article:published_time" content="2020-04-28T00:00:00-05:00" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://nickmccarty.github.io/til/altair-test/"},"description":"Rendering Vega visualization grammar in Jupyter Notebooks","@type":"BlogPosting","url":"https://nickmccarty.github.io/til/altair-test/","headline":"How to Create an Interactive Scatterplot with Altair","dateModified":"2020-05-03T00:00:00-05:00","datePublished":"2020-05-03T00:00:00-05:00","image":"https://nickmccarty.github.io/til/images/altair_scatterplot.jpg","@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Nicholas McCarty"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nickmccarty.github.io/til/altair-test"},"description":"Rendering Vega visualization grammar in Jupyter Notebooks","@type":"BlogPosting","url":"https://nickmccarty.github.io/til/altair-test","headline":"How to Create an Interactive Scatterplot with Altair","dateModified":"2020-04-28T00:00:00-05:00","datePublished":"2020-04-28T00:00:00-05:00","image":"https://nickmccarty.github.io/til/images/altair_scatterplot.jpg","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/til/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://nickmccarty.github.io/til/feed.xml" title="til" /><!-- the google_analytics_id gets auto inserted from the config file -->
 
@@ -28,17 +29,18 @@
 <title>How to Create an Interactive Scatterplot with Altair | til</title>
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="How to Create an Interactive Scatterplot with Altair" />
+<meta name="author" content="Nicholas McCarty" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Rendering Vega visualization grammar in Jupyter Notebooks" />
 <meta property="og:description" content="Rendering Vega visualization grammar in Jupyter Notebooks" />
-<link rel="canonical" href="https://nickmccarty.github.io/til/altair-test/" />
-<meta property="og:url" content="https://nickmccarty.github.io/til/altair-test/" />
+<link rel="canonical" href="https://nickmccarty.github.io/til/altair-test" />
+<meta property="og:url" content="https://nickmccarty.github.io/til/altair-test" />
 <meta property="og:site_name" content="til" />
 <meta property="og:image" content="https://nickmccarty.github.io/til/images/altair_scatterplot.jpg" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-05-03T00:00:00-05:00" />
+<meta property="article:published_time" content="2020-04-28T00:00:00-05:00" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://nickmccarty.github.io/til/altair-test/"},"description":"Rendering Vega visualization grammar in Jupyter Notebooks","@type":"BlogPosting","url":"https://nickmccarty.github.io/til/altair-test/","headline":"How to Create an Interactive Scatterplot with Altair","dateModified":"2020-05-03T00:00:00-05:00","datePublished":"2020-05-03T00:00:00-05:00","image":"https://nickmccarty.github.io/til/images/altair_scatterplot.jpg","@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Nicholas McCarty"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nickmccarty.github.io/til/altair-test"},"description":"Rendering Vega visualization grammar in Jupyter Notebooks","@type":"BlogPosting","url":"https://nickmccarty.github.io/til/altair-test","headline":"How to Create an Interactive Scatterplot with Altair","dateModified":"2020-04-28T00:00:00-05:00","datePublished":"2020-04-28T00:00:00-05:00","image":"https://nickmccarty.github.io/til/images/altair_scatterplot.jpg","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -132,9 +134,11 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">How to Create an Interactive Scatterplot with Altair</h1><p class="page-description">Rendering Vega visualization grammar in Jupyter Notebooks</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-05-03T00:00:00-05:00" itemprop="datePublished">
-        May 3, 2020
-      </time>
+    <h1 class="post-title p-name" itemprop="name headline">How to Create an Interactive Scatterplot with Altair</h1><p class="page-description">Rendering Vega visualization grammar in Jupyter Notebooks</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-04-28T00:00:00-05:00" itemprop="datePublished">
+        Apr 28, 2020
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Nicholas McCarty</span></span>
        • <span class="read-time" title="Estimated read time">
     
     
@@ -162,14 +166,14 @@ window.onload = wrap_img;
         <div class="pb-5 d-flex flex-wrap flex-justify-end">
           <div class="px-2">
 
-    <a href="https://github.com/nickmccarty/til/tree/master/_notebooks/2020_04_28_altair_test.ipynb" role="button" target="_blank">
+    <a href="https://github.com/nickmccarty/til/tree/master/_notebooks/2020-04-28-altair-test.ipynb" role="button" target="_blank">
 <img class="notebook-badge-image" src="/til/assets/badges/github.svg" alt="View On GitHub">
     </a>
 </div>
 
           
           <div class="px-2">
-    <a href="https://colab.research.google.com/github/nickmccarty/til/blob/master/_notebooks/2020_04_28_altair_test.ipynb" target="_blank">
+    <a href="https://colab.research.google.com/github/nickmccarty/til/blob/master/_notebooks/2020-04-28-altair-test.ipynb" target="_blank">
         <img class="notebook-badge-image" src="/til/assets/badges/colab.svg" alt="Open In Colab"/>
     </a>
 </div>
@@ -181,7 +185,7 @@ window.onload = wrap_img;
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
-# file to edit: _notebooks/2020_04_28_altair_test.ipynb
+# file to edit: _notebooks/2020-04-28-altair-test.ipynb
 -->
 
 <div class="container" id="notebook-container">
@@ -355,7 +359,7 @@ window.onload = wrap_img;
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/til/altair-test/" hidden></a>
+</script><a class="u-url" href="/til/altair-test" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">

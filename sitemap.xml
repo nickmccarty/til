@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://nickmccarty.github.io/til/statistics/central%20limit%20theorem/python/2020/04/30/central-limit-theorem.html</loc>
+<loc>https://nickmccarty.github.io/til/altair-test</loc>
+<lastmod>2020-04-28T00:00:00-05:00</lastmod>
+</url>
+<url>
+<loc>https://nickmccarty.github.io/til/central-limit-theorem</loc>
 <lastmod>2020-04-30T00:00:00-05:00</lastmod>
 </url>
 <url>
-<loc>https://nickmccarty.github.io/til/2020/05/03/YYYY-MM-DD-post-template.html</loc>
-<lastmod>2020-05-03T00:00:00-05:00</lastmod>
+<loc>https://nickmccarty.github.io/til/2020/05/04/YYYY-MM-DD-post-template.html</loc>
+<lastmod>2020-05-04T00:00:00-05:00</lastmod>
 </url>
 <url>
-<loc>https://nickmccarty.github.io/til/altair-test/</loc>
-<lastmod>2020-05-03T00:00:00-05:00</lastmod>
+<loc>https://nickmccarty.github.io/til/algorithmic-fairness</loc>
+<lastmod>2020-05-04T00:00:00-05:00</lastmod>
 </url>
 <url>
 <loc>https://nickmccarty.github.io/til/about/</loc>
@@ -23,6 +27,6 @@
 </url>
 <url>
 <loc>https://nickmccarty.github.io/til/_pages/search.html</loc>
-<lastmod>2020-05-04T17:52:05-05:00</lastmod>
+<lastmod>2020-05-05T16:21:55-05:00</lastmod>
 </url>
 </urlset>

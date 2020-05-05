@@ -182,14 +182,14 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#tl:dr">tl:dr </a></li>
+<li class="toc-entry toc-h2"><a href="#tl;dr">tl;dr </a></li>
 <li class="toc-entry toc-h2"><a href="#Measuring-Fairness...">Measuring Fairness... </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#...of-Regression">...of Regression </a></li>
 <li class="toc-entry toc-h3"><a href="#...of-Classification">...of Classification </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#Data-preprocessing">Data preprocessing </a>
+<li class="toc-entry toc-h2"><a href="#Data-Preprocessing">Data Preprocessing </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#Information-Filter">Information Filter </a>
 <ul>
@@ -205,9 +205,9 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#Measuring-Fairness-after-Applying-Information-Filter">Measuring Fairness after Applying Information Filter </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#Model-constraints">Model constraints </a></li>
+<li class="toc-entry toc-h2"><a href="#Model-Constraints">Model Constraints </a></li>
 <li class="toc-entry toc-h2"><a href="#Demographic-Parity-Classifier">Demographic Parity Classifier </a></li>
-<li class="toc-entry toc-h2"><a href="#Equal-opportunity">Equal opportunity </a></li>
+<li class="toc-entry toc-h2"><a href="#Equal-Opportunity">Equal Opportunity </a></li>
 <li class="toc-entry toc-h2"><a href="#Sources">Sources </a></li>
 </ul><!--
 #################################################
@@ -233,6 +233,13 @@ window.onload = wrap_img;
     <svg class="octicon octicon-checklist octicon octicon-checklist" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 8.5l-6 6-3-3L8.5 10l1.5 1.5L14.5 7 16 8.5zM5.7 12.2l.8.8H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h7c.55 0 1 .45 1 1v6.5l-.8-.8c-.39-.39-1.03-.39-1.42 0L5.7 10.8a.996.996 0 000 1.41v-.01zM4 4h5V3H4v1zm0 2h5V5H4v1zm0 2h3V7H4v1zM3 9H2v1h1V9zm0-2H2v1h1V7zm0-2H2v1h1V5zm0-2H2v1h1V3z"></path></svg>
     <strong>Tip: </strong>The code required to replicate the results described in this article is provided in the <code>Show Code</code> dropdowns.
 </div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 
 </div>
 </div>
@@ -275,8 +282,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="tl:dr">
-<a class="anchor" href="#tl:dr" aria-hidden="true"><span class="octicon octicon-link"></span></a>tl:dr<a class="anchor-link" href="#tl:dr"> </a>
+<h2 id="tl;dr">
+<a class="anchor" href="#tl;dr" aria-hidden="true"><span class="octicon octicon-link"></span></a>tl;dr<a class="anchor-link" href="#tl;dr"> </a>
 </h2>
 <p>Scikit-Learn comes with a copy of <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/housing/">UC Irvine's ML housing dataset</a> (better known as the Boston housing dataset), which was taken from the StatLib library which is maintained at Carnegie Mellon University. This dataset contains features like "lower status of population" and "the proportion of blacks by town". Consequently, there's a real possibility that any model made from this dataset will overfit on MSE and underfit on fairness when we want to apply it. Scikit-Lego offers tools to mitigate such fairness issues; a demonstration is provided, along with some discussion of the underlying intuition, as originally provided in the <a href="https://scikit-lego.readthedocs.io/en/latest/">scikit-lego documentation</a>.</p>
 
@@ -592,8 +599,8 @@ equal opportunity score: 0.0
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data-preprocessing">
-<a class="anchor" href="#Data-preprocessing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data preprocessing<a class="anchor-link" href="#Data-preprocessing"> </a>
+<h2 id="Data-Preprocessing">
+<a class="anchor" href="#Data-Preprocessing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Preprocessing<a class="anchor-link" href="#Data-Preprocessing"> </a>
 </h2>
 <p>When doing data preprocessing we're trying to remove any bias caused by the sensitive variable from the input dataset. By doing this, we remain flexible in our choice of models.</p>
 <h3 id="Information-Filter">
@@ -1045,8 +1052,8 @@ $$<p><br></p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Model-constraints">
-<a class="anchor" href="#Model-constraints" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model constraints<a class="anchor-link" href="#Model-constraints"> </a>
+<h2 id="Model-Constraints">
+<a class="anchor" href="#Model-Constraints" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model Constraints<a class="anchor-link" href="#Model-Constraints"> </a>
 </h2>
 <p>Another way we could tackle this fairness problem would be to explicitly take fairness into account when optimizing the parameters of our model. This is implemented in the <code>DemographicParityClassifier</code> as well as the <code>EqualOpportunityClassifier</code>.</p>
 <p>Both these models are built as an extension of basic logistic regression. Where logistic regression optimizes the following problem:</p>
@@ -1237,8 +1244,8 @@ $$\begin{array}{cl}{\operatorname{minimize}} &amp; -\sum_{i=1}^{N} \log p\left(y
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Equal-opportunity">
-<a class="anchor" href="#Equal-opportunity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Equal opportunity<a class="anchor-link" href="#Equal-opportunity"> </a>
+<h2 id="Equal-Opportunity">
+<a class="anchor" href="#Equal-Opportunity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Equal Opportunity<a class="anchor-link" href="#Equal-Opportunity"> </a>
 </h2>
 <p>In the same spirit as the <code>DemographicParityClassifier</code> discussed above, there is also an <code>EqualOpportunityClassifier</code> which optimizes</p>
 <p><br></p>

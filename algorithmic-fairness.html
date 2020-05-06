@@ -286,7 +286,7 @@ window.onload = wrap_img;
 <h2 id="tl;dr">
 <a class="anchor" href="#tl;dr" aria-hidden="true"><span class="octicon octicon-link"></span></a>tl;dr<a class="anchor-link" href="#tl;dr"> </a>
 </h2>
-<p>Scikit-Learn comes with a copy of <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/housing/">UC Irvine's ML housing dataset</a> (better known as the Boston housing dataset), which was taken from the StatLib library which is maintained at Carnegie Mellon University. This dataset contains features like "lower status of population" and "the proportion of blacks by town". Consequently, there's a real possibility that any model made from this dataset will overfit on Mean Squared Error and underfit on fairness when we want to apply it. Scikit-Lego offers tools to mitigate such fairness issues; a demonstration is provided, along with some discussion of the underpinning mathematical intuition, as originally provided in the <a href="https://scikit-lego.readthedocs.io/en/latest/">scikit-lego documentation</a>.</p>
+<p>Scikit-Learn comes with a copy of <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/housing/">UC Irvine's ML housing dataset</a>--perhaps better known as the Boston housing dataset--which was taken from the StatLib library maintained at Carnegie Mellon University. This dataset contains features like "lower status of population" and "the proportion of blacks by town". Consequently, any model made from this dataset is likely to overfit on Mean Squared Error and underfit on fairness, if one was to apply it. Scikit-Lego offers tools to mitigate such fairness issues; a demonstration is provided, along with some discussion of the underpinning mathematical intuition, as originally provided in the <a href="https://scikit-lego.readthedocs.io/en/latest/">scikit-lego documentation</a>.</p>
 
 </div>
 </div>
@@ -626,7 +626,7 @@ v_3 &amp; = x_3 - \frac{x_3 v_1}{v_1 v_1} - \frac{x_3 v_2}{v_2 v_2}\\
 v_k &amp; = x_k - \frac{x_k v_1}{v_1 v_1} - \frac{x_k' v_2}{v_2 v_2}
 \end{split}
 $$<p><br></p>
-<p>Concatenating our vectors (but removing the sensitive ones) gives us a new training matrix $X_{\text{more fair}} =  [v_3, ..., v_k]$.</p>
+<p>Concatenating our vectors and removing the sensitive ones gives us a new training matrix $X_{\text{more fair}} =  [v_3, ..., v_k]$.</p>
 <h2 id="Experiment">
 <a class="anchor" href="#Experiment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Experiment<a class="anchor-link" href="#Experiment"> </a>
 </h2>
